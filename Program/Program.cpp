@@ -36,16 +36,9 @@ void QuickSort(int list[], int start, int end)
 		else
 		{
 			std::swap(list[left], list[right]);
-		}
-
-		if ()
-		{
-			QuickSort(list, left, right--);
-		}
-		else if ()
-		{
-			QuickSort(list, left++, right);
-		}
+		}		
+		QuickSort(list, start, right--);
+		QuickSort(list, left++, end);
 	}
 }
 
