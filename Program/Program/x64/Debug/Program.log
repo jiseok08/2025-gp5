@@ -1,8 +1,2 @@
 ﻿  Program.cpp
-C:\Users\허봉식\Desktop\2025-gp5\Program\Program.cpp(28,47): error C2677: 이항 '[': 'std::vector<int,std::allocator<int>>' 형식을 사용하는 전역 연산자가 없거나 허용되는 변환이 없습니다.
-C:\Users\허봉식\Desktop\2025-gp5\Program\Program.cpp(32,9): error C2660: 'Node::search': 함수는 0개의 인수를 사용하지 않습니다.
-      C:\Users\허봉식\Desktop\2025-gp5\Program\Program.cpp(26,10):
-      'Node::search' 선언을 참조하십시오.
-      C:\Users\허봉식\Desktop\2025-gp5\Program\Program.cpp(32,9):
-      인수 목록 '()'을(를) 일치시키는 동안
-  
+  Program.vcxproj -> C:\Users\허봉식\Desktop\2025-gp5\Program\x64\Debug\Program.exe
