@@ -1,69 +1,75 @@
 ﻿#include <iostream>
-#include <queue>
 #include <vector>
-
-#define SIZE 6
-
-int parent[SIZE];
 
 using namespace std;
 
-// Root Node를 찾는 함수
+#define SIZE 8
 
-// 배열의 인덱스와 값이 같다면 Root Node 발견
+class Kruskal
+{
+private:
+    class Edge
+    {
+    private:
+        int vertexX;
+        int vertexY;
+        int weight;
+    public:
+        Edge(int vertexX, int vertexY, int weight)
+        {
+            this->vertexX = vertexX;
+            this->vertexY = vertexY;
+            this->weight = weight;
+        }
+    };
 
-// 부모 노드의 번호를 전달하면서, Root Node를 찾을 때까지 
-// 재귀 호출을 반복합니다.
-int find(int x)
-{
-    if (parent[x] == x)
-    {
-        return x;
-    }
-    else
-    {
-        return parent[x] = find(parent[x]);
-    }
-    
-}
-void Union(int x, int y)
-{
-    x = find(x);
-    y = find(y);
+    int cost;
+    int parent[SIZE];
 
-    if (x == y)  {return;}
-    if ()
-}
-bool same(int x, int y)
-{
-    if (x == y)
+    vector<Edge> nodeList;
+public:
+    Kruskal()
     {
-        return true;
+        cost = 0;
+
+        for (int i = 0; i < SIZE; i++)
+        {
+            parent[i] = 0;
+        }
     }
-    else
+    void insert(int vertexX, int vertexY, int weight)
     {
-        return false;
+        Edge edge(vertexX, vertexY, weight);
+
+        nodeList.push_back(edge);
     }
-}
+};
 
 int main()
 {
-#pragma region 유니온 파인드
-    // 여러 노드가 존재할 때 어떤 노드가 다른 노드와 
-    // 연결되어 있는지 확인하는 알고리즘입니다.
+#pragma region 최소 신장 트리
+    // 그래프의 모든 정점을 포함하면서 사이클이 존재하지 않는
+    // 부분 그래프로, 그래프의 모든 정점을 최소 비용으로 연결하는 트리입니다.
 
-    // Union : 특정한 두 개의 노드를 같은 집합으로 합치는 연산입니다.
+    // 그래프의 정점의 수가 n개일 때, 간선의 수는 n-1개 입니다.
 
-    // Find : 특정한 노드가 어느 집합에 있는지 확인하는 연산입니다.
 #pragma endregion
-    for (int i = 0; i < SIZE; i++)
-    {
-        parent[i] = i;
-    }
-    parent[5] = 4;
-    parent[4] = 3;
 
-    cout << Find(5) << endl;
+    Kruskal kruskal;
+
+    kruskal.insert(1, 7, 10);
+    kruskal.insert(4, 7, 14);
+
+    kruskal.insert(1, 4, 30);
+    kruskal.insert(2, 4, 25);
+
+    kruskal.insert(1, 2, 64);
+    kruskal.insert(1, 5, 19);
+
+    kruskal.insert(5, 7, 73);
+    kruskal.insert(5, 6, 48);
+    kruskal.insert(5, 3, 22);
+
 
     return 0;
 }
