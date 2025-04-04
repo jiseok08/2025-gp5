@@ -1,134 +1,81 @@
 ﻿#include <iostream>
 #include <algorithm>
-#include <vector>
 
-#define SIZE 8
+#define SIZE 6
+#define INFINITY 10000000
 
 using namespace std;
 
-class Kruskal
+class Dijkstra
 {
 private:
-    class Edge
+    int node[SIZE][SIZE] =
     {
-    private:
-        int vertexX;
-        int vertexY;
-        int weight;
-    public:
-        Edge(int vertexX, int vertexY, int weight)
-        {
-            this->vertexX = vertexX;
-            this->vertexY = vertexY;
-            this->weight = weight;
-        }
-
-        const int& VertexX() { return vertexX; };
-        const int& VertexY() { return vertexY; };
-        const int& Weight() { return weight; };
-        
-        const bool& operator < (const Edge& edge)
-        {
-            return weight < edge.weight;
-        }
+        {0,2,5,1,INFINITY,INFINITY},
+        {2,0,3,2,INFINITY,INFINITY},
+        {5,3,0,3,       1,      5,},
+        {1,2,3,0,       1,INFINITY},
+        {INFINITY,INFINITY,1,1,0,2},
+        {INFINITY,INFINITY,5,INFINITY,2,0},
     };
-
-    int cost;
-    int parent[SIZE];
-
-    vector<Edge> nodeList;
+    bool visited[SIZE];
+    int distance[SIZE];
 public:
-    Kruskal()
+    ~Dijkstra()
     {
-        cost = 0;
-
         for (int i = 0; i < SIZE; i++)
         {
-            parent[i] = i;
+            visited[i] = false;
+            distance[i] = 0;
         }
     }
-
-    void insert(int vertexX, int vertexY, int weight)
+    void calculate(int start)
     {
-        Edge edge(vertexX, vertexY, weight);
+        distance[1] = 0;
 
-        nodeList.push_back(edge);
     }
-
-    void calculate()
+    const int& FInd()
     {
-        sort(nodeList.begin(), nodeList.end());
-
-        for (int i = 0; i < nodeList.size(); i++)
+        int c = 0;
+        for (int i = 0; i < SIZE; i++)
         {
-            if (same(nodeList[i].VertexX(), nodeList[i].VertexY()) == false)
+            if (c < distance[i])
             {
-                cost += nodeList[i].Weight();
+                swap(c, distance[i]);
 
-                Union(nodeList[i].VertexX(), nodeList[i].VertexY());
+                c = 0;
             }
         }
-
-        cout << "Cost : " << cost << endl;
     }
-
-    int find(int x)
-    {
-        if (parent[x] == x)
-        {
-            return x;
-        }
-        else
-        {
-            return parent[x] = find(parent[x]);
-        }
-
-    }
-    void Union(int x, int y)
-    {
-        x = find(x);
-        y = find(y);
-
-        if (x < y) { parent[y] = x; }
-        else { parent[x] = y; }
-    }
-    bool same(int x, int y)
-    {
-        return find(x) == find(y);
-    }
-
 };
 
 int main()
 {
-#pragma region 최소 신장 트리
-    // 그래프의 모든 정점을 포함하면서 사이클이 존재하지 않는 
-    // 부분 그래프로, 그래프의 모든 정점을 최소 비용으로 연결하는 트리입니다.
+#pragma region 다익스트라 알고리즘
 
-    // 그래프의 정점의 수가 n개일 때, 간선의 수는 n-1개 입니다.
+    // 시작점으로부터 모든 노드까지의 최소 거리를 구해주는
+    // 알고리즘입니다.
 
-    Kruskal kruskal;
+    // 1. 거리 배열에 weight[시작 노드]의 값들로 초기화합니다.
 
-    kruskal.insert(1, 7, 10);
-    kruskal.insert(4, 7, 14);
+    // 2. 시작점을 방문 처리합니다.
 
-    kruskal.insert(1, 4, 30);
-    kruskal.insert(2, 4, 25);
+    // 3. 거리 배열에서 최소 비용 노드를 찾고 방문 처리합니다.
+    //    단, 이미 방문한 노드는 제외합니다.
 
-    kruskal.insert(1, 2, 64);
-    kruskal.insert(1, 5, 19);
+    // 4. 최소 비용 노드를 거쳐갈 지 고민해서 거리 배열을 갱신합니다.
+    //    단, 이미 방문한 노드는 제외합니다.
 
-    kruskal.insert(5, 7, 73);
-    kruskal.insert(2, 5, 61);
+    // 5. 모든 노드를 방문할 때까지 3번 ~ 4번을 반복합니다.
 
-    kruskal.insert(5, 3, 22);
-    kruskal.insert(5, 6, 48);
-    kruskal.insert(3, 6, 36);
+    // 방문하지 않은 노드 중에서 가장 작은 거리를 가진 노드를
+    // 방문하고, 그 노드와 연결된 다른 노드까지의 거리를 계산합니다.
 
-    kruskal.calculate();
+    Dijkstra dijkstra;
 
 
 #pragma endregion
+
 
 
     return 0;
